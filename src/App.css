@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #111827;
+  color: #f9fafb;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.hero {
+  padding: 48px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, #1f2937, #111827);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.eyebrow {
+  color: #fbbf24;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(2.4rem, 6vw, 5rem);
+  line-height: 1;
+  margin: 16px 0;
+}
+
+.hero p {
+  max-width: 680px;
+  color: #d1d5db;
+  font-size: 1.1rem;
+}
+
+.search-bar {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 14px 18px;
+  border: 1px solid #374151;
+  border-radius: 14px;
+  background: #030712;
+  color: #f9fafb;
+}
+
+.search-bar button,
+.artwork-card button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 18px;
+  background: #fbbf24;
+  color: #111827;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.artwork-card button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.results-section,
+.gallery-section {
+  margin-top: 48px;
+}
+
+.artwork-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.artwork-card {
+  overflow: hidden;
+  border-radius: 22px;
+  background: #1f2937;
+  border: 1px solid #374151;
+}
+
+.artwork-card img,
+.image-placeholder {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  display: block;
+}
+
+.image-placeholder {
+  display: grid;
+  place-items: center;
+  color: #9ca3af;
+  background: #030712;
+}
+
+.artwork-info {
+  padding: 18px;
+}
+
+.artwork-info h2 {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+}
+
+.artwork-info p {
+  color: #d1d5db;
+  margin: 0 0 18px;
+}
+
+.status,
+.error,
+.empty-gallery {
+  color: #d1d5db;
+  margin-top: 24px;
+}
+
+.error {
+  color: #fca5a5;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 28px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+}
