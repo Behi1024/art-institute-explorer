@@ -5,20 +5,21 @@ type SearchBarProps = {
 };
 
 export function SearchBar({ query, onQueryChange, onSearch }: SearchBarProps) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    onSearch();
+  }
+
   return (
-    <div className="search-bar">
+    <form className="search-bar" onSubmit={handleSubmit}>
       <input
         type="text"
         value={query}
         placeholder="Search artworks..."
         onChange={(event) => onQueryChange(event.target.value)}
-        onKeyDown={(event) => {
-          if (event.key === "Enter") {
-            onSearch();
-          }
-        }}
       />
-      <button onClick={onSearch}>Search</button>
-    </div>
+
+      <button type="submit">Search</button>
+    </form>
   );
 }

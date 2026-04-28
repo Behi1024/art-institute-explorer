@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 import type { Artwork } from "./schemas/artworkSchema";
@@ -8,30 +8,56 @@ import { ArtworkCard } from "./components/ArtworkCard";
 import { Gallery } from "./components/Gallery";
 
 function App() {
-  const [query, setQuery] = useState("cats");
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [galleryArtworks] = useState<Artwork[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  async function handleSearch() {
-    if (!query.trim()) {
-      setErrorMessage("Please enter a search term.");
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedQuery(query.trim());
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [query]);
+
+  useEffect(() => {
+    if (!debouncedQuery) {
+      setArtworks([]);
+      setErrorMessage("");
       return;
     }
 
-    try {
-      setIsLoading(true);
-      setErrorMessage("");
+    async function fetchDebouncedResults() {
+      try {
+        setIsLoading(true);
+        setErrorMessage("");
 
-      const results = await searchArtworks(query);
-      setArtworks(results);
-    } catch (error) {
-      console.error(error);
-      setErrorMessage("Something went wrong while loading artworks.");
-    } finally {
-      setIsLoading(false);
+        const results = await searchArtworks(debouncedQuery);
+        setArtworks(results);
+      } catch (error) {
+        console.error(error);
+        setErrorMessage("Something went wrong while loading artworks.");
+      } finally {
+        setIsLoading(false);
+      }
     }
+
+    fetchDebouncedResults();
+  }, [debouncedQuery]);
+
+  async function handleSearch() {
+    const trimmedQuery = query.trim();
+
+    if (!trimmedQuery) {
+      setErrorMessage("Please enter a search term.");
+      setArtworks([]);
+      return;
+    }
+
+    setDebouncedQuery(trimmedQuery);
   }
 
   return (
