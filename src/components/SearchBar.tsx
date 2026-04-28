@@ -12,8 +12,12 @@ export function SearchBar({ query, onQueryChange, onSearch }: SearchBarProps) {
         value={query}
         placeholder="Search artworks..."
         onChange={(event) => onQueryChange(event.target.value)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            onSearch();
+          }
+        }}
       />
-
       <button onClick={onSearch}>Search</button>
     </div>
   );
