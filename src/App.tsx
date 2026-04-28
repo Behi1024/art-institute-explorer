@@ -35,42 +35,54 @@ function App() {
   }
 
   return (
-    <main className="app">
-      <section className="hero">
-        <p className="eyebrow">Art Institute Explorer</p>
-        <h1>Search artworks and build your personal gallery.</h1>
-        <p>
-          A React + TypeScript mini project using fetch and Zod runtime
-          validation.
-        </p>
-
-        <SearchBar
-          query={query}
-          onQueryChange={setQuery}
-          onSearch={handleSearch}
-        />
-      </section>
-
-      {isLoading && <p className="status">Loading artworks...</p>}
-      {errorMessage && <p className="error">{errorMessage}</p>}
-
-      <section className="results-section">
-        <h2>Search Results</h2>
-
-        {artworks.length === 0 && !isLoading ? (
-          <p className="status">
-            Search for something like cats, flowers, Monet...
-          </p>
-        ) : (
-          <div className="artwork-grid">
-            {artworks.map((artwork) => (
-              <ArtworkCard key={artwork.id} artwork={artwork} />
-            ))}
+    <main className="desktop">
+      <section className="win98-window">
+        <div className="window-title-bar">
+          <div className="window-title">
+            <span className="window-icon">🖼️</span>
+            <span>Art Institute Explorer</span>
           </div>
-        )}
-      </section>
 
-      <Gallery artworks={galleryArtworks} />
+          <div className="window-buttons">
+            <button aria-label="Minimize">─</button>
+            <button aria-label="Maximize">□</button>
+            <button aria-label="Close">×</button>
+          </div>
+        </div>
+
+        <div className="window-content">
+          <section className="search-panel">
+            <label>Search:</label>
+
+            <SearchBar
+              query={query}
+              onQueryChange={setQuery}
+              onSearch={handleSearch}
+            />
+          </section>
+
+          {isLoading && <p className="status">Loading artworks...</p>}
+          {errorMessage && <p className="error">{errorMessage}</p>}
+
+          <section className="results-section">
+            <h2>Search Results</h2>
+
+            {artworks.length === 0 && !isLoading ? (
+              <p className="status">
+                Search for something like cats, flowers, Monet...
+              </p>
+            ) : (
+              <div className="artwork-grid">
+                {artworks.map((artwork) => (
+                  <ArtworkCard key={artwork.id} artwork={artwork} />
+                ))}
+              </div>
+            )}
+          </section>
+
+          <Gallery artworks={galleryArtworks} />
+        </div>
+      </section>
     </main>
   );
 }

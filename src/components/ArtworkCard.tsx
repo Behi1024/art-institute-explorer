@@ -11,17 +11,22 @@ export function ArtworkCard({ artwork }: ArtworkCardProps) {
 
   return (
     <article className="artwork-card">
-      {imageUrl ? (
-        <img src={imageUrl} alt={artwork.title} />
-      ) : (
-        <div className="image-placeholder">No image</div>
-      )}
+      <div className="card-title-bar">
+        <span>{artwork.title}</span>
+        <button aria-label="Close card">×</button>
+      </div>
+
+      <div className="artwork-image-frame">
+        {imageUrl ? (
+          <img src={imageUrl} alt={artwork.title} />
+        ) : (
+          <div className="image-placeholder">No image</div>
+        )}
+      </div>
 
       <div className="artwork-info">
-        <h2>{artwork.title}</h2>
         <p>{artwork.artist_title ?? "Unknown artist"}</p>
-
-        <button disabled>Add to Gallery</button>
+        <button>Add to Gallery</button>
       </div>
     </article>
   );
